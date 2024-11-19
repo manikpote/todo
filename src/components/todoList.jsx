@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-// import AddIcon from "@mui/icons-material/Add";
-// import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-// import { Tooltip as ReactTooltip } from "react-tooltip";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 function TodoList() {
   const [tasks, setTasks] = useState([]);
@@ -23,12 +23,11 @@ function TodoList() {
     if (input.trim()) {
       setTasks([...tasks, { text: input }]);
       setInput("");
-
       const userIndex = data.findIndex(
         (userData) => userData.id === Number(userId)
       );
-
       data[userIndex].list = [...tasks, { text: input }];
+
       localStorage.setItem("Data", JSON.stringify(data));
     }
   };
@@ -37,7 +36,7 @@ function TodoList() {
     setTasks(tasks.filter((_, i) => i !== index));
     const userIndex = data.findIndex((item) => item.id === userId);
 
-    data[userIndex] = tasks.filter((_, i) => i !== index);
+    data[userIndex].list = tasks.filter((_, i) => i !== index);
     localStorage.setItem("Data", JSON.stringify(data));
   };
 
@@ -56,9 +55,14 @@ function TodoList() {
               placeholder="Add a new task"
               className="border outline-none p-1 rounded-md w-full placeholder:text-[15px] mb-5"
             />
-            <button onClick={handleAddTask} className="absolute right-2 top-1">
-              {/* <AddIcon /> */}+
+            <button
+              onClick={handleAddTask}
+              className="absolute right-2 top-1"
+              data-tooltip-id="add"
+            >
+              <AddIcon />
             </button>
+            <ReactTooltip id="add" place="right" content="Add" />
           </div>
           <ul className=" ">
             {tasks.map((task, index) => (
@@ -69,12 +73,12 @@ function TodoList() {
                 <span className="pl-2">{task.text}</span>
                 <button
                   onClick={() => handleDeleteTask(index)}
-                  className="pr-1"
-                  // data-for="delete"
+                  className="pr-1 hover:text-red-400"
+                  data-tooltip-id="delete"
                 >
-                  {/* <DeleteOutlineIcon /> */}dlete
+                  <DeleteOutlineIcon />
                 </button>
-                {/* <ReactTooltip id="delete" /> */}
+                <ReactTooltip id="delete" content="Delete" place="bottom" />
               </li>
             ))}
           </ul>

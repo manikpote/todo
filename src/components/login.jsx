@@ -12,28 +12,30 @@ export const Login = () => {
   const validate = yup.object({
     input: yup
       .string()
-      // .email("Enter valid email")
+      .email("Enter valid email")
       .required("This field is required."),
-    password: yup.string().required("This field is required."),
-    // .min(8, "Password must be at least 8 characters long")
-    // .test(
-    //   "uppercase",
-    //   "Password must include at least one uppercase letter",
-    //   (value) => /[A-Z]/.test(value)
-    // )
-    // .test(
-    //   "lowercase",
-    //   "Password must include at least one lowercase letter",
-    //   (value) => /[a-z]/.test(value)
-    // )
-    // .test("number", "Password must include at least one number", (value) =>
-    //   /\d/.test(value)
-    // )
-    // .test(
-    //   "specialChar",
-    //   "Password must include at least one special character",
-    //   (value) => /[@$!%*?&]/.test(value)
-    // )
+    password: yup
+      .string()
+      .required("This field is required.")
+      .min(8, "Password must be at least 8 characters long")
+      .test(
+        "uppercase",
+        "Password must include at least one uppercase letter",
+        (value) => /[A-Z]/.test(value)
+      )
+      .test(
+        "lowercase",
+        "Password must include at least one lowercase letter",
+        (value) => /[a-z]/.test(value)
+      )
+      .test("number", "Password must include at least one number", (value) =>
+        /\d/.test(value)
+      )
+      .test(
+        "specialChar",
+        "Password must include at least one special character",
+        (value) => /[@$!%*?&]/.test(value)
+      ),
   });
 
   function handleSubmit(values) {
@@ -50,7 +52,6 @@ export const Login = () => {
       localStorage.setItem("userId", userId);
     } else {
       userId = randomNumber();
-      localStorage.setItem("user", userId);
       availableData.push({
         id: userId,
         email: input,
