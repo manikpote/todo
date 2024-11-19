@@ -34,7 +34,7 @@ function TodoList() {
 
   const handleDeleteTask = (index) => {
     setTasks(tasks.filter((_, i) => i !== index));
-    const userIndex = data.findIndex((item) => item.id === userId);
+    const userIndex = data.findIndex((item) => item.id === Number(userId));
 
     data[userIndex].list = tasks.filter((_, i) => i !== index);
     localStorage.setItem("Data", JSON.stringify(data));
