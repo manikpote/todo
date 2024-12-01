@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import image from "./illustration.png";
 import logo from "./img.png";
+import { Tooltip } from "react-tooltip";
+import { Popup } from "../reuseableComponents/popup";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -78,7 +80,9 @@ export const Login = () => {
           <Form className="flex gap-8 rounded-3xl shadow-[0px_0px_45px_0px_#E1C2A8] p-1  bg-white text-[#525252]">
             <img src={image} className="h-[27em] rounded-l-[20px]" />
             <div className="w-[17em] mt-14 ">
-              <img src={logo} className="h-8 mb-5" />
+              <div>
+                <Popup />
+              </div>
               <h1 className="text-xl font-semibold tracking-wide mb-4">
                 Login to your Account
               </h1>
