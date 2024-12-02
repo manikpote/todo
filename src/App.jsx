@@ -3,6 +3,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import TodoList from "./components/todoList/todoList";
 import { Popup } from "./components/reuseableComponents/popup";
 import { RangeSlider } from "./components/RangeSlider/rangeSlider";
+import "./App.css";
 
 function App() {
   return (

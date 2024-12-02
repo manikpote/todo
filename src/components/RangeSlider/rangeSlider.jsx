@@ -1,4 +1,5 @@
 import { useState } from "react";
+import validator from "validator";
 
 export const RangeSlider = () => {
   const [value, setValue] = useState(8);
@@ -6,9 +7,26 @@ export const RangeSlider = () => {
   const [number, setNumber] = useState(false);
   const [specialChar, setSpecialChar] = useState(false);
   const [upperCase, setupperCase] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleChange(e) {
     setValue(e.target.value);
+  }
+
+  function checkPasswordStrength(newPassword) {
+    if (
+      validator.isStrongPassword(newPassword, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
+      setErrorMessage("Is Strong Password");
+    } else {
+      setErrorMessage("Is Not Strong Password");
+    }
   }
 
   function generatePassword() {
@@ -27,6 +45,8 @@ export const RangeSlider = () => {
       newPassword += charSet.charAt(Math.floor(Math.random() * charSet.length));
     }
     setRandomPass(newPassword);
+
+    checkPasswordStrength(newPassword);
   }
 
   function handleCopy() {
@@ -42,6 +62,7 @@ export const RangeSlider = () => {
           value={value}
           onChange={handleChange}
         />
+        <span>{errorMessage}</span>
         <p>{value}</p>
         <button onClick={generatePassword}>Generate</button>
         <p>Random Password: {randomPass}</p>
